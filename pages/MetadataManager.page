@@ -1,0 +1,48 @@
+<apex:page controller="MetadataManagerController" extensions="PartnerWSDL,MetadataWSDL">
+  <apex:includeScript value="http://code.jquery.com/jquery-1.9.1.min.js"/>
+  <apex:includeScript value="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"/>
+  <apex:stylesheet value="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css"/>
+  <apex:pageMessages ></apex:pageMessages>
+  <apex:form >
+    <apex:pageBlock rendered="{!NOT(loginSuccess) && NOT(loginFailure)}">
+      <apex:pageBlockSection >
+        <apex:outputLabel >Login as API User</apex:outputLabel>
+<!--
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel >Username: </apex:outputLabel>
+          <apex:inputText value="{!username}"/>
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel >Password: </apex:outputLabel>
+          <apex:inputText value="{!password}"/>
+        </apex:pageBlockSectionItem>
+-->
+      </apex:pageBlockSection>
+      <apex:pageBlockButtons location="bottom">
+        <apex:commandButton action="{!login}" value="Login"/>
+      </apex:pageBlockButtons>
+    </apex:pageBlock>
+    <apex:pageBlock rendered="{!loginSuccess}">
+      <apex:sectionHeader title="Congratulations, {!loggedInUserName}!"/>
+      <h3>Metadata Type Name</h3>
+      <ul data-role="listview" data-theme="g">
+      <apex:repeat value="{!metadataTypes}" var="metaType">
+        <li>{!metaType}</li>
+      </apex:repeat>
+      </ul>
+<!--
+      <apex:pageBlockTable value="{!descMetaObjects}" var="metaObj">
+        <apex:column headerValue="Directory Name" value="{!metaObj.directoryName}"/>
+        <apex:column headerValue="XML Name" value="{!metaObj.xmlName}"/>
+        <apex:column headerValue="In Folder?" value="{!metaObj.inFolder}"/>
+        <apex:column headerValue="Has Metafile?" value="{!metaObj.metaFile}"/>
+      </apex:pageBlockTable>
+-->
+      <apex:pageBlockSection >
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+  </apex:form>
+  <apex:form rendered="{!loginFailure}">
+    <apex:outputLabel >Error loggin in.</apex:outputLabel>
+  </apex:form>
+</apex:page>
